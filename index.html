@@ -25,7 +25,7 @@ section{padding:78px 0}.sectiontop{display:flex;justify-content:space-between;al
 footer{border-top:1px solid var(--line);padding:28px 0;color:#666;font-size:12px;display:flex;justify-content:space-between}
 .now{position:fixed;left:18px;right:18px;bottom:16px;z-index:60;background:#111;border:1px solid #333;border-radius:14px;padding:10px 13px;display:none;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;box-shadow:0 15px 50px #000}.now.show{display:grid}.now small{display:block;color:#777}.now strong{font-size:12px}.now button{background:var(--red);border:0;color:#fff;border-radius:50%;width:38px;height:38px}.cart{position:fixed;right:18px;bottom:18px;z-index:55;border:0;background:var(--red);color:#fff;border-radius:999px;padding:13px 17px;font-weight:950;cursor:pointer}.cart span{background:#fff;color:#111;border-radius:50%;padding:2px 6px;margin-left:5px}
 /* Embedded beat player: fixed-height shell with an internal scrolling beat list */
-.beat-player{background:rgba(6,6,6,.58);border:1px solid rgba(255,255,255,.20);border-radius:18px;overflow:hidden;box-shadow:0 18px 55px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.10)}
+.beat-player{width:min(980px,100%);margin:0 auto;background:rgba(6,6,6,.58);border:1px solid rgba(255,255,255,.20);border-radius:18px;overflow:hidden;box-shadow:0 18px 55px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.10)}
 .player-head{position:sticky;top:0;z-index:5;background:rgba(8,8,8,.94);border-bottom:1px solid rgba(255,255,255,.12);padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:14px}
 .player-controls{display:flex;align-items:center;gap:11px;min-width:0}
 .player-main,.player-stop{border:0;background:var(--red);color:#fff;cursor:pointer;font-weight:950}
@@ -33,7 +33,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:#666;font-size:12px
 .player-main:hover,.player-stop:hover{background:var(--red2)}
 .player-info{min-width:0}.player-info strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.player-info small{display:block;color:#777;font-size:10px;margin-top:4px}
 .scroll-label{font-size:10px;font-weight:950;letter-spacing:.12em;color:#aaa;white-space:nowrap}.scroll-label span{color:#666;margin-left:6px}
-.beat-scroll{height:460px;overflow-y:auto;overflow-x:hidden;padding:13px;scrollbar-width:thin;scrollbar-color:#555 #111}
+.beat-scroll{height:460px;max-height:460px;overflow-y:auto;overflow-x:hidden;padding:13px;scrollbar-width:thin;scrollbar-color:#555 #111}
 .beat-scroll::-webkit-scrollbar{width:8px}.beat-scroll::-webkit-scrollbar-track{background:#0b0b0b}.beat-scroll::-webkit-scrollbar-thumb{background:#444;border-radius:99px}.beat-scroll::-webkit-scrollbar-thumb:hover{background:var(--red)}
 .beat-scroll .grid{margin:0}.beat-scroll .beat{min-width:0}
 @media(max-width:800px){.beat-scroll{height:440px}.player-head{align-items:flex-start}.scroll-label{display:none}.beat-scroll .grid{grid-template-columns:1fr}.beat-scroll .beat{grid-template-columns:52px 1fr}.beat-scroll .buy{grid-column:2;text-align:left;display:flex;align-items:center;gap:12px}}
@@ -195,8 +195,8 @@ footer{
   - Put your Payhip product or direct checkout link in payhip
 */
 const beatsData=[
- {name:"Lil Cj Kasino Type Beat \"DANGER\" (Prod. By @CodeNameLando)",tags:["DARK","HARD"],price:"$50",audio:"CodeNameLando/danger.mp3",payhip:"https://payhip.com/b/Q3ewo"},
- {name:"Lil Cj Kasino Type Beat \"DARK SIDE\" (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"CodeNameLando/dark-side.mp3",payhip:"https://payhip.com/b/I2BXo"},
+ {name:"Lil Cj Kasino Type Beat \"DANGER\" (Prod. By @CodeNameLando)",tags:["DARK","HARD"],price:"$50",audio:"audio/danger.mp3",payhip:"https://payhip.com/b/Q3ewo"},
+ {name:"Lil Cj Kasino Type Beat \"DARK SIDE\" (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/dark-side.mp3",payhip:"https://payhip.com/b/I2BXo"},
 ];
 
 const beatsEl=document.getElementById("beats"),filtersEl=document.getElementById("filters");
@@ -261,6 +261,7 @@ function startBeatVisualizer(){
  tick();
 }
 function playBeat(i,btn){
+ if(!beatsData[i] || !beatsData[i].audio){ alert("This beat does not have a preview MP3 connected yet."); return; }
  if(currentAudio&&currentIndex===i){
   if(currentAudio.paused){currentAudio.play();startBeatVisualizer()}else{currentAudio.pause()}
   return;
@@ -331,6 +332,7 @@ document.getElementById("cartButton").onclick=()=>{
  }
  const params=new URLSearchParams();
  cartItems.forEach(key=>params.append("cart_links[]",key));
+ // Payhip combined checkout: each selected product is passed to Payhip.
  window.location.href="https://payhip.com/buy?"+params.toString();
 };
 </script>
