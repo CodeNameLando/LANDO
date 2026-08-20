@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>codenamelando — Trap Instrumentals</title>
 <meta name="description" content="Dark trap instrumentals by codenamelando. Preview beats and buy licenses.">
-<link rel="icon" type="image/png" href="Logo.png">
+
 <style>
 :root{--red:#e50914;--red2:#ff2430;--bg:#070707;--panel:#101010;--panel2:#151515;--text:#f7f7f7;--muted:#929292;--line:#252525}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
@@ -145,24 +145,34 @@ footer{
   .logo img{height:46px;max-width:220px}
 }
 
-
-/* Header logo */
-.site-logo img, .logo img, header img[alt*="Codenamelando"] {
-  display:block;
-  height:56px;
-  width:auto;
-  max-width:280px;
-  object-fit:contain;
-}
-
 </style>
+<link rel="icon" type="image/png" href="Logo.png">
+
+<style id="codenamelando-final-layout">
+html,body{margin:0!important;padding:0!important}
+header{margin:0!important;position:relative!important;top:0!important}
+header .wrap,header .nav{justify-content:center!important}
+.logo{margin:0 auto!important}
+.logo img{max-height:58px!important;width:auto!important;object-fit:contain}
+.navlinks{display:none!important}
+.hero,.hero-section,.intro,.tagline,.subtitle,.sectiontop{display:none!important}
+main{padding-top:0!important;margin-top:0!important}
+#beats{padding-top:0!important;margin-top:0!important}
+#beats .sectiontop{display:none!important}
+.beat-list,.beats-list,.track-list,.tracks,.playlist,.beat-scroll{
+  height:420px!important;max-height:420px!important;
+  overflow-y:auto!important;overflow-x:hidden!important;
+}
+.now,.player,.beat-player,.beat-store-player{
+  margin-left:auto!important;margin-right:auto!important;
+}
+</style>
+
 </head>
 <body>
 <div id="reactiveBg" aria-hidden="true"></div>
 <div id="reactiveGlow" aria-hidden="true"></div>
-<header><div class="wrap nav"><a class="logo" href="#"><img src="images/Logo.png" alt="Beats By Codenamelando"></a><nav class="navlinks"><a href="#beats">BEATS</a><a href="#licenses">LISENCES</a><a href="#about"></a></nav></div>
-<a class="site-logo" href="#"><img src="Logo.png" alt="Codenamelando"></a>
-</header>
+<header><div class="wrap nav"><a class="logo" href="#"><img src="images/Logo.png" alt="Beats By Codenamelando"></a><nav class="navlinks"><a href="#beats">BEATS</a><a href="#licenses">LISENCES</a><a href="#about"></a></nav></div></header>
 
 
 <section id="beats"><div class="wrap">
@@ -310,6 +320,8 @@ function payhipKey(url){
  return null;
 }
 
+function updateCartCount(){
+ document.getElementById("cartCount").textContent=cartItems.length;
 }
 
 function buy(i,e){
@@ -318,6 +330,7 @@ function buy(i,e){
  if(!key){alert("Payhip checkout is not connected for this beat yet.");return}
  if(!cartItems.includes(key)){
   cartItems.push(key);
+  updateCartCount();
  }
  const btn=e && e.currentTarget ? e.currentTarget : null;
  if(btn){
@@ -340,6 +353,7 @@ document.getElementById("cartButton").onclick=()=>{
   return;
  }
  const params=new URLSearchParams();
+ cartItems.forEach(key=>params.append("cart_links[]",key));
  // Payhip combined checkout: each selected product is passed to Payhip.
  window.location.href="https://payhip.com/buy?"+params.toString();
 };
