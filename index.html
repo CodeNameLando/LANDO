@@ -195,9 +195,13 @@ footer{
   - Put your Payhip product or direct checkout link in payhip
 */
 const beatsData=[
- {name:"Lil Cj Kasino Type Beat \"DANGER\" (Prod. By @CodeNameLando)",bpm:145,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/DANGER 145bpm (Prod. By @CodeNameLando).mp3",payhip:"https://payhip.com/b/Q3ewo"},
- {name:"Lil Cj Kasino Type Beat \"DARK SIDE\" (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/DARK SIDE 157bpm (Prod. By @CodeNameLando).mp3",payhip:"https://payhip.com/b/I2BXo"},
-
+ {name:"DANGER 145bpm (Prod. By @CodeNameLando)",bpm:145,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/danger.mp3",payhip:"https://payhip.com/b/Q3ewo"},
+ {name:"Lil Cj Kasino Type Beat \"DARK SIDE\" (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/dark-side.mp3",payhip:"https://payhip.com/b/I2BXo"},
+ {name:"Lil Cj Kasino Type Beat \"LOCKED IN\" (Prod. By @CodeNameLando)",bpm:142,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/locked-in.mp3",payhip:"https://payhip.com/b/O2UTx"},
+ {name:"BabyFace E Type Beat \"OMM\" (Prod. By @CodeNameLando)",bpm:182,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/omm.mp3",payhip:"https://payhip.com/b/t7Nnf"},
+ {name:"NO FEAR 157bpm (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/no-fear.mp3",payhip:""},
+ {name:"NO HOPE 157bpm (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/no-hope.mp3",payhip:""},
+ {name:"NO LOVE 145bpm (Prod. By @CodeNameLando)",bpm:145,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/no-love.mp3",payhip:""}
 ];
 
 const beatsEl=document.getElementById("beats"),filtersEl=document.getElementById("filters");
@@ -267,7 +271,7 @@ function playBeat(i,btn){
   return;
  }
  if(currentAudio) stopAudio();
- currentAudio=new Audio(beatsData[i].audio);currentAudio.crossOrigin='anonymous';currentIndex=i;
+ currentAudio=new Audio(beatsData[i].audio);currentIndex=i;
  currentAudio.preload='auto';
  setupBeatVisualizer();
  currentAudio.play().catch(()=>alert("Your preview file is missing. Put the MP3 at: "+beatsData[i].audio));
@@ -310,6 +314,12 @@ function buy(i,e){
   cartItems.push(key);
   updateCartCount();
  }
+ const btn=e && e.currentTarget ? e.currentTarget : null;
+ if(btn){
+  const oldText=btn.textContent;
+  btn.textContent="ADDED ✓";
+  setTimeout(()=>btn.textContent=oldText,900);
+ }
 }
 
 function buyNow(i,e){
@@ -324,9 +334,9 @@ document.getElementById("cartButton").onclick=()=>{
   alert("Your cart is empty. Click ADD TO CART on a beat first.");
   return;
  }
- const checkout=new URL("https://payhip.com/buy");
- cartItems.forEach(key=>checkout.searchParams.append("cart_links[]",key));
- window.location.href=checkout.toString();
+ const params=new URLSearchParams();
+ cartItems.forEach(key=>params.append("cart_links[]",key));
+ window.location.href="https://payhip.com/buy?"+params.toString();
 };
 </script>
 </body>
