@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>codenamelando — Trap Instrumentals</title>
 <meta name="description" content="Dark trap instrumentals by codenamelando. Preview beats and buy licenses.">
-<link rel="icon" type="image/png" href="images/Logo.png">
+<link rel="icon" type="image/png" href="Logo.png">
 <style>
 :root{--red:#e50914;--red2:#ff2430;--bg:#070707;--panel:#101010;--panel2:#151515;--text:#f7f7f7;--muted:#929292;--line:#252525}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
@@ -145,12 +145,24 @@ footer{
   .logo img{height:46px;max-width:220px}
 }
 
+
+/* Header logo */
+.site-logo img, .logo img, header img[alt*="Codenamelando"] {
+  display:block;
+  height:56px;
+  width:auto;
+  max-width:280px;
+  object-fit:contain;
+}
+
 </style>
 </head>
 <body>
 <div id="reactiveBg" aria-hidden="true"></div>
 <div id="reactiveGlow" aria-hidden="true"></div>
-<header><div class="wrap nav"><a class="logo" href="#"><img src="images/Logo.png" alt="Beats By Codenamelando"></a><nav class="navlinks"><a href="#beats">BEATS</a><a href="#licenses">LISENCES</a><a href="#about"></a></nav></div></header>
+<header><div class="wrap nav"><a class="logo" href="#"><img src="images/Logo.png" alt="Beats By Codenamelando"></a><nav class="navlinks"><a href="#beats">BEATS</a><a href="#licenses">LISENCES</a><a href="#about"></a></nav></div>
+<a class="site-logo" href="#"><img src="Logo.png" alt="Codenamelando"></a>
+</header>
 
 
 <section id="beats"><div class="wrap">
@@ -182,7 +194,7 @@ footer{
 <div class="list"><div><b>01 — Preview</b><br><span style="color:#777">Customers hear your tagged MP3 previews.</span></div><div><b>02 — Buy</b><br><span style="color:#777">The button sends them to Payhip checkout.</span></div><div><b>03 — Download</b><br><span style="color:#777">Payhip handles payment and digital delivery.</span></div></div>
 </div></section>
 
-<button class="cart" id="cartButton" type="button">CART <span id="cartCount">0</span></button>
+
 <footer><div class="wrap"><span>© 2026 codenamelando</span><span>Trap instrumentals • All rights reserved</span></div></footer>
 
 <script>
@@ -298,8 +310,6 @@ function payhipKey(url){
  return null;
 }
 
-function updateCartCount(){
- document.getElementById("cartCount").textContent=cartItems.length;
 }
 
 function buy(i,e){
@@ -308,7 +318,6 @@ function buy(i,e){
  if(!key){alert("Payhip checkout is not connected for this beat yet.");return}
  if(!cartItems.includes(key)){
   cartItems.push(key);
-  updateCartCount();
  }
  const btn=e && e.currentTarget ? e.currentTarget : null;
  if(btn){
@@ -331,7 +340,6 @@ document.getElementById("cartButton").onclick=()=>{
   return;
  }
  const params=new URLSearchParams();
- cartItems.forEach(key=>params.append("cart_links[]",key));
  // Payhip combined checkout: each selected product is passed to Payhip.
  window.location.href="https://payhip.com/buy?"+params.toString();
 };
