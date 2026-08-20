@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>codenamelando — Trap Instrumentals</title>
+<meta name="description" content="Dark trap instrumentals by codenamelando. Preview beats and buy licenses.">
+<link rel="icon" type="image/png" href="images/Logo.png">
+<style>
+:root{--red:#e50914;--red2:#ff2430;--bg:#070707;--panel:#101010;--panel2:#151515;--text:#f7f7f7;--muted:#929292;--line:#252525}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.035;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:50px 50px}
+a{text-decoration:none;color:inherit}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(7,7,7,.86);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:21px;font-weight:950;letter-spacing:-.055em}.logo i{font-style:normal;color:var(--red)}
+.navlinks{display:flex;gap:25px;font-size:13px;font-weight:750;color:#bbb}.navlinks a:hover{color:#fff}
+.hero{min-height:640px;display:grid;place-items:center;text-align:center;padding:90px 0;background:radial-gradient(circle at 50% 35%,rgba(229,9,20,.30),rgba(229,9,20,.08) 25%,transparent 58%)}
+.kicker{color:var(--red2);font-size:11px;font-weight:900;letter-spacing:.22em;text-transform:uppercase}.hero h1{font-size:clamp(58px,10vw,112px);line-height:.84;letter-spacing:-.08em;margin:19px 0}.hero h1 span{color:var(--red)}.hero p{max-width:650px;margin:0 auto 30px;color:#aaa;line-height:1.7;font-size:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--line);padding:13px 18px;font-weight:900;font-size:13px;cursor:pointer}.btn.red{background:var(--red);border-color:var(--red)}.btn.red:hover{background:var(--red2)}.btn.ghost{background:#111}.btn.small{padding:10px 13px;font-size:12px}
+section{padding:78px 0}.sectiontop{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}.sectiontop h2{margin:0;font-size:34px;letter-spacing:-.05em}.sectiontop p{margin:5px 0 0;color:var(--muted)}
+.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{background:#111;color:#aaa;border:1px solid var(--line);border-radius:999px;padding:9px 13px;font-weight:800;font-size:11px;cursor:pointer}.filter.active,.filter:hover{color:#fff;border-color:#555}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.beat{background:linear-gradient(145deg,#121212,#0d0d0d);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center}.play{width:48px;height:48px;border-radius:50%;border:0;background:var(--red);color:white;font-weight:950;cursor:pointer}.play:hover{background:var(--red2)}.name{font-weight:950;letter-spacing:-.02em}.meta{color:#777;font-size:11px;margin-top:6px}.chips{display:flex;gap:5px;margin-top:8px}.chip{font-size:9px;text-transform:uppercase;border:1px solid #292929;color:#888;border-radius:999px;padding:4px 7px}.buy{text-align:right}.price{font-weight:950;font-size:16px;margin-bottom:8px}
+.about{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px}.box h3{font-size:25px;margin:0 0 12px}.box p{color:#aaa;line-height:1.75}.list{display:grid;gap:9px}.list div{padding:14px;background:#0c0c0c;border-left:3px solid var(--red);font-size:13px}
+.licensegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.license{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:22px}.license.featured{border-color:var(--red);box-shadow:0 0 0 1px rgba(229,9,20,.2)}.license h3{margin:0}.license .cost{font-size:30px;font-weight:950;margin:15px 0}.license ul{padding-left:18px;color:#aaa;line-height:2;font-size:13px}.license a{width:100%}
+footer{border-top:1px solid var(--line);padding:28px 0;color:#666;font-size:12px;display:flex;justify-content:space-between}
+.now{position:fixed;left:18px;right:18px;bottom:16px;z-index:60;background:#111;border:1px solid #333;border-radius:14px;padding:10px 13px;display:none;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;box-shadow:0 15px 50px #000}.now.show{display:grid}.now small{display:block;color:#777}.now strong{font-size:12px}.now button{background:var(--red);border:0;color:#fff;border-radius:50%;width:38px;height:38px}.cart{position:fixed;right:18px;bottom:18px;z-index:55;border:0;background:var(--red);color:#fff;border-radius:999px;padding:13px 17px;font-weight:950;cursor:pointer}.cart span{background:#fff;color:#111;border-radius:50%;padding:2px 6px;margin-left:5px}
+/* Embedded beat player: fixed-height shell with an internal scrolling beat list */
+.beat-player{background:rgba(6,6,6,.58);border:1px solid rgba(255,255,255,.20);border-radius:18px;overflow:hidden;box-shadow:0 18px 55px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.10)}
+.player-head{position:sticky;top:0;z-index:5;background:rgba(8,8,8,.94);border-bottom:1px solid rgba(255,255,255,.12);padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.player-controls{display:flex;align-items:center;gap:11px;min-width:0}
+.player-main,.player-stop{border:0;background:var(--red);color:#fff;cursor:pointer;font-weight:950}
+.player-main{width:42px;height:42px;border-radius:50%;flex:0 0 auto}.player-stop{width:32px;height:32px;border-radius:50%;font-size:18px;flex:0 0 auto}
+.player-main:hover,.player-stop:hover{background:var(--red2)}
+.player-info{min-width:0}.player-info strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.player-info small{display:block;color:#777;font-size:10px;margin-top:4px}
+.scroll-label{font-size:10px;font-weight:950;letter-spacing:.12em;color:#aaa;white-space:nowrap}.scroll-label span{color:#666;margin-left:6px}
+.beat-scroll{height:460px;overflow-y:auto;overflow-x:hidden;padding:13px;scrollbar-width:thin;scrollbar-color:#555 #111}
+.beat-scroll::-webkit-scrollbar{width:8px}.beat-scroll::-webkit-scrollbar-track{background:#0b0b0b}.beat-scroll::-webkit-scrollbar-thumb{background:#444;border-radius:99px}.beat-scroll::-webkit-scrollbar-thumb:hover{background:var(--red)}
+.beat-scroll .grid{margin:0}.beat-scroll .beat{min-width:0}
+@media(max-width:800px){.beat-scroll{height:440px}.player-head{align-items:flex-start}.scroll-label{display:none}.beat-scroll .grid{grid-template-columns:1fr}.beat-scroll .beat{grid-template-columns:52px 1fr}.beat-scroll .buy{grid-column:2;text-align:left;display:flex;align-items:center;gap:12px}}
+
+@media(max-width:800px){.grid,.about,.licensegrid{grid-template-columns:1fr}.navlinks{display:none}.sectiontop{display:block}.filters{margin-top:18px}.beat{grid-template-columns:52px 1fr}.buy{grid-column:2;text-align:left;display:flex;align-items:center;gap:12px}.hero{min-height:560px}}
+
+/* === CODENAME LANDO VISUAL UPDATE === */
+body{
+  background:#050505;
+  background-attachment:fixed;
+  overflow-x:hidden;
+}
+#reactiveBg{
+  position:fixed;
+  inset:-3%;
+  z-index:-2;
+  pointer-events:none;
+  background:url("images/BG2.png") center top / cover no-repeat;
+  transform:scale(1.03);
+  transform-origin:center center;
+  filter:brightness(.78) saturate(1.08);
+  will-change:transform,filter,opacity;
+  transition:opacity .35s ease;
+}
+#reactiveGlow{
+  position:fixed;
+  inset:-8%;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 48%, rgba(229,9,20,.22), transparent 48%);
+  mix-blend-mode:screen;
+  opacity:.10;
+  will-change:opacity,transform;
+}
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:rgba(0,0,0,.28);
+}
+body:before{
+  z-index:-1;
+  opacity:.018;
+}
+header{
+  background:rgba(5,5,5,.38);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  height:72px;
+}
+.logo img{
+  display:block;
+  width:auto;
+  height:54px;
+  max-width:270px;
+  object-fit:contain;
+}
+.sectiontop h2,
+.sectiontop p{
+  text-shadow:0 2px 12px #000;
+}
+/* Crystal-clear glass beat cards: transparent, with NO blur */
+.beat{
+  background:rgba(10,10,10,.46);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 0 28px rgba(255,255,255,.025),
+    0 14px 45px rgba(0,0,0,.28);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.beat:hover{
+  background:rgba(10,10,10,.54);
+  border-color:rgba(255,255,255,.32);
+}
+.filter{
+  background:rgba(10,10,10,.42);
+  border-color:rgba(255,255,255,.18);
+  backdrop-filter:none;
+}
+.now{
+  background:rgba(10,10,10,.48);
+  border-color:rgba(255,255,255,.24);
+  box-shadow:0 15px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.12);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.box,.license{
+  background:rgba(10,10,10,.50);
+  border-color:rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter:none;
+}
+.list div{
+  background:rgba(5,5,5,.46);
+}
+footer{
+  background:rgba(5,5,5,.42);
+}
+@media(max-width:800px){
+  .logo img{height:46px;max-width:220px}
+}
+
+</style>
+</head>
+<body>
+<div id="reactiveBg" aria-hidden="true"></div>
+<div id="reactiveGlow" aria-hidden="true"></div>
+<header><div class="wrap nav"><a class="logo" href="#"><img src="images/Logo.png" alt="Beats By Codenamelando"></a><nav class="navlinks"><a href="#beats">BEATS</a><a href="#licenses">LISENCES</a><a href="#about"></a></nav></div></header>
+
+
+<section id="beats"><div class="wrap">
+<div class="sectiontop"><div><h2>Beat Store</h2><p>Preview every beat. Pick your sound. Buy through Payhip.</p></div>
+<div class="filters" id="filters"></div></div>
+<div class="beat-player">
+  <div class="player-head">
+    <div class="player-controls">
+      <button class="player-main" id="nowPlay" type="button">▶</button>
+      <div class="player-info"><strong id="nowName">Select a beat</strong><small id="nowStatus">Choose a beat below to preview</small></div>
+      <button class="player-stop" id="nowStop" type="button">×</button>
+    </div>
+    <div class="scroll-label">BEATS <span>SCROLL TO BROWSE</span></div>
+  </div>
+  <div class="beat-scroll" id="beatScroll"><div class="grid" id="beats"></div></div>
+</div>
+</div></section>
+
+<section id="licenses"><div class="wrap">
+<div class="sectiontop"><div><h2>Simple licenses</h2><p></p></div></div>
+<div class="licensegrid">
+<div class="license"><h3>MP3 Lease</h3><div class="cost">$50</div><ul><li>MP3 file</li><li>Non-exclusive license</li><li>For standard releases</li></ul></div>
+<div class="license featured"><h3>WAV Lease</h3><div class="cost">$100</div><ul><li>WAV + MP3</li><li>Higher-quality audio</li><li>For commercial releases</li></ul></div>
+<div class="license"><h3>Exclusive</h3><div class="cost">$300</div><ul><li>Exclusive rights</li><li>WAV + MP3 + stems</li><li>One artist gets the beat</li></ul></div>
+</div></div></section>
+
+<section id="about"><div class="wrap about">
+<div class="box"><h3>Join My List For Free Beats</h3><p>Modern trap production with a dark, hard-hitting edge. This site is built to keep the customer focused on one thing: hearing the beat and buying it.</p><a class="btn ghost" href="https://9bf8a70e.sibforms.com/serve/MUIFAFxBIrOXqehP5yEu6UurPjeaVSM8r9ViYfZcnJnD7YKMnRRk5AAtgbUZCERMv06scLsqXU-CWwyOBNxlL8Of9nuYKWaeD4zBHbWZEY2YtVr2PIMP0UT1OsjCcrNqORdl983cX1r18Z5Ektd0PwDDkc35o0qe1gioU_M2qVjKfpoB_S7JnSh8_7n5-9v9BdTs8jy8h2vBQbutSQ==">Join List</a></div>
+<div class="list"><div><b>01 — Preview</b><br><span style="color:#777">Customers hear your tagged MP3 previews.</span></div><div><b>02 — Buy</b><br><span style="color:#777">The button sends them to Payhip checkout.</span></div><div><b>03 — Download</b><br><span style="color:#777">Payhip handles payment and digital delivery.</span></div></div>
+</div></section>
+
+<button class="cart" id="cartButton" type="button">CART <span id="cartCount">0</span></button>
+<footer><div class="wrap"><span>© 2026 codenamelando</span><span>Trap instrumentals • All rights reserved</span></div></footer>
+
+<script>
+/*
+  ===========================================
+  EDIT ONLY THIS PART
+  ===========================================
+  For each beat:
+  - Put your preview MP3 in /audio/
+  - Put your Payhip product or direct checkout link in payhip
+*/
+const beatsData=[
+ {name:"DANGER 145bpm (Prod. By @CodeNameLando)",bpm:145,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/DANGER 145bpm (Prod. By @CodeNameLando).mp3",payhip:"https://payhip.com/b/Q3ewo"},
+ {name:"Lil Cj Kasino Type Beat \"DARK SIDE\" (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/DARK SIDE 157bpm (Prod. By @CodeNameLando).mp3",payhip:"https://payhip.com/b/I2BXo"},
+ {name:"Lil Cj Kasino Type Beat \"LOCKED IN\" (Prod. By @CodeNameLando)",bpm:142,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/LOCKED IN 142bpm (Prod. By @CodeNameLando).mp3",payhip:"https://payhip.com/b/O2UTx"},
+ {name:"BabyFace E Type Beat \"OMM\" (Prod. By @CodeNameLando)",bpm:182,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/BabyFace E Type Beat ''OMM'' (Prod. By @CodeNameLando).mp3",payhip:"https://payhip.com/b/t7Nnf"},
+ {name:"NO FEAR 157bpm (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/NO FEAR 157bpm (Prod. By @CodeNameLando).mp3",payhip:""},
+ {name:"NO HOPE 157bpm (Prod. By @CodeNameLando)",bpm:157,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/NO HOPE 157bpm (Prod. By @CodeNameLando).mp3",payhip:""},
+ {name:"NO LOVE 145bpm (Prod. By @CodeNameLando)",bpm:145,key:"C MIN",tags:["DARK","HARD"],price:"$50",audio:"audio/NO LOVE 145bpm (Prod. By @CodeNameLando).mp3",payhip:""}
+];
+
+const beatsEl=document.getElementById("beats"),filtersEl=document.getElementById("filters");
+let currentAudio=null,currentIndex=-1,cartItems=[];
+let audioCtx=null, analyser=null, sourceNode=null, freqData=null, visualFrame=null;
+
+function render(filter="ALL"){
+ beatsEl.innerHTML="";
+ beatsData.filter(b=>filter==="ALL"||b.tags.includes(filter)).forEach((b,i)=>{
+  const realIndex=beatsData.indexOf(b);
+  const el=document.createElement("article");el.className="beat";
+  el.innerHTML=`<button class="play" onclick="playBeat(${realIndex},this)">▶</button>
+  <div><div class="name">${b.name}</div><div class="meta">${b.bpm} BPM • ${b.key}</div><div class="chips">${b.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div></div>
+  <div class="buy"><div class="price">${b.price}</div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="btn red small" type="button" onclick="buyNow(${realIndex},event)">BUY NOW</button><button class="btn red small" type="button" onclick="buy(${realIndex},event)">ADD TO CART</button></div></div>`;
+  beatsEl.appendChild(el);
+ });
+}
+const tags=["ALL",...new Set(beatsData.flatMap(b=>b.tags))];
+tags.forEach(t=>{const x=document.createElement("button");x.className="filter"+(t==="ALL"?" active":"");x.textContent=t;x.onclick=()=>{document.querySelectorAll(".filter").forEach(y=>y.classList.remove("active"));x.classList.add("active");render(t)};filtersEl.appendChild(x)});
+render();
+
+function setupBeatVisualizer(){
+ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+ if(audioCtx.state==='suspended') audioCtx.resume();
+ if(sourceNode){try{sourceNode.disconnect()}catch(e){}}
+ analyser=audioCtx.createAnalyser();
+ analyser.fftSize=256;
+ analyser.smoothingTimeConstant=.78;
+ freqData=new Uint8Array(analyser.frequencyBinCount);
+ sourceNode=audioCtx.createMediaElementSource(currentAudio);
+ sourceNode.connect(analyser);
+ analyser.connect(audioCtx.destination);
+ startBeatVisualizer();
+}
+function startBeatVisualizer(){
+ if(visualFrame) cancelAnimationFrame(visualFrame);
+ const bg=document.getElementById('reactiveBg'), glow=document.getElementById('reactiveGlow');
+ const tick=()=>{
+  if(!currentAudio || !analyser){
+   bg.style.transform='scale(1.03)'; bg.style.filter='brightness(.78) saturate(1.08)'; glow.style.opacity='.10';
+   visualFrame=requestAnimationFrame(tick); return;
+  }
+  analyser.getByteFrequencyData(freqData);
+  let bass=0, mids=0;
+  const bassEnd=Math.max(1,Math.floor(freqData.length*.12));
+  const midStart=bassEnd, midEnd=Math.max(midStart+1,Math.floor(freqData.length*.45));
+  for(let n=0;n<bassEnd;n++) bass+=freqData[n];
+  for(let n=midStart;n<midEnd;n++) mids+=freqData[n];
+  bass=(bass/bassEnd)/255; mids=(mids/(midEnd-midStart))/255;
+  const pulse=Math.min(1,bass*1.35+mids*.25);
+  const scale=1.03 + pulse*.035;
+  const brightness=.78 + pulse*.16;
+  const saturation=1.08 + pulse*.22;
+  const driftX=Math.sin(performance.now()/1100)*pulse*0.35;
+  const driftY=Math.cos(performance.now()/1300)*pulse*0.25;
+  bg.style.transform=`translate(${driftX}px,${driftY}px) scale(${scale})`;
+  bg.style.filter=`brightness(${brightness}) saturate(${saturation})`;
+  glow.style.opacity=(.10+pulse*.24).toFixed(3);
+  glow.style.transform=`scale(${1+pulse*.05})`;
+  visualFrame=requestAnimationFrame(tick);
+ };
+ tick();
+}
+function playBeat(i,btn){
+ if(currentAudio&&currentIndex===i){
+  if(currentAudio.paused){currentAudio.play();startBeatVisualizer()}else{currentAudio.pause()}
+  return;
+ }
+ if(currentAudio) stopAudio();
+ currentAudio=new Audio(beatsData[i].audio);currentAudio.crossOrigin='anonymous';currentIndex=i;
+ currentAudio.preload='auto';
+ setupBeatVisualizer();
+ currentAudio.play().catch(()=>alert("Your preview file is missing. Put the MP3 at: "+beatsData[i].audio));
+ document.querySelectorAll(".play").forEach(x=>x.textContent="▶");btn.textContent="Ⅱ";
+ document.getElementById("nowName").textContent=beatsData[i].name;document.getElementById("nowStatus").textContent="Preview playing • "+beatsData[i].bpm+" BPM";
+ currentAudio.onended=stopAudio;
+}
+function stopAudio(){
+ if(currentAudio) currentAudio.pause();
+ if(visualFrame) cancelAnimationFrame(visualFrame);
+ if(sourceNode){try{sourceNode.disconnect()}catch(e){}}
+ if(analyser){try{analyser.disconnect()}catch(e){}}
+ sourceNode=null; analyser=null; freqData=null;
+ currentAudio=null;currentIndex=-1;
+ const bg=document.getElementById('reactiveBg'), glow=document.getElementById('reactiveGlow');
+ if(bg){bg.style.transform='scale(1.03)';bg.style.filter='brightness(.78) saturate(1.08)'}
+ if(glow){glow.style.opacity='.10';glow.style.transform='scale(1)'}
+ document.getElementById("nowName").textContent="Select a beat";document.getElementById("nowStatus").textContent="Choose a beat below to preview";document.querySelectorAll(".play").forEach(x=>x.textContent="▶")
+}
+document.getElementById("nowPlay").onclick=()=>{if(currentAudio){currentAudio.paused?currentAudio.play():currentAudio.pause()}};document.getElementById("nowStop").onclick=stopAudio
+function payhipKey(url){
+ try{
+  const u=new URL(url,window.location.href);
+  const parts=u.pathname.split("/").filter(Boolean);
+  if(parts[0]==="b" && parts[1]) return parts[1];
+  if(parts[0]==="buy") return u.searchParams.get("link");
+ }catch(err){}
+ return null;
+}
+
+function updateCartCount(){
+ document.getElementById("cartCount").textContent=cartItems.length;
+}
+
+function buy(i,e){
+ if(e) e.preventDefault();
+ const key=payhipKey(beatsData[i].payhip);
+ if(!key){alert("Payhip checkout is not connected for this beat yet.");return}
+ if(!cartItems.includes(key)){
+  cartItems.push(key);
+  updateCartCount();
+ }
+}
+
+function buyNow(i,e){
+ if(e) e.preventDefault();
+ const url=beatsData[i].payhip;
+ if(!url){alert("Payhip checkout is not connected for this beat yet.");return}
+ window.location.href=url;
+}
+
+document.getElementById("cartButton").onclick=()=>{
+ if(!cartItems.length){
+  alert("Your cart is empty. Click ADD TO CART on a beat first.");
+  return;
+ }
+ const checkout=new URL("https://payhip.com/buy");
+ cartItems.forEach(key=>checkout.searchParams.append("cart_links[]",key));
+ window.location.href=checkout.toString();
+};
+</script>
+</body>
+</html>
