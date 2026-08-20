@@ -240,7 +240,7 @@ function render(filter="ALL"){
   const el=document.createElement("article");el.className="beat";
   el.innerHTML=`<button class="play" onclick="playBeat(${realIndex},this)">▶</button>
   <div><div class="name">${b.name}</div><div class="meta">${b.bpm} BPM • ${b.key}</div><div class="chips">${b.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div></div>
-  <div class="buy"><div class="price">${b.price}</div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="btn red small" type="button" onclick="buyNow(${realIndex},event)">BUY NOW</button><button class="btn red small" type="button" onclick="buy(${realIndex},event)">ADD TO CART</button></div></div>`;
+  <div class="buy"><div class="price">${b.price}</div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="btn red small" type="button" onclick="buyNow(${realIndex},event)">BUY NOW</button></div></div>`;
   beatsEl.appendChild(el);
  });
 }
